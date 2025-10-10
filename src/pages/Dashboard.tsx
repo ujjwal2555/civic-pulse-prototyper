@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { dummyIssues, Issue } from '@/data/dummyData';
 import { MapPin, Plus, AlertCircle, Clock, CheckCircle2, Wrench } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import InteractiveMap from '@/components/InteractiveMap';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -58,51 +59,12 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-[calc(100vh-4rem)]">
-      {/* Map Section */}
-      <div className="relative h-[400px] bg-muted border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20">
-          <div className="container mx-auto h-full flex items-center justify-center">
-            <div className="text-center space-y-4">
-              <MapPin className="h-16 w-16 text-primary mx-auto animate-bounce" />
-              <p className="text-lg font-medium">Interactive City Map</p>
-              <p className="text-sm text-muted-foreground">
-                {dummyIssues.length} issues reported in your area
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Map Markers (Dummy) */}
-        <div className="absolute inset-0 pointer-events-none">
-          {dummyIssues.map((issue, index) => (
-            <div
-              key={issue.id}
-              className="absolute animate-fade-in"
-              style={{
-                left: `${20 + index * 15}%`,
-                top: `${30 + (index % 3) * 20}%`,
-                animationDelay: `${index * 100}ms`,
-              }}
-            >
-              <div className="relative pointer-events-auto cursor-pointer group">
-                <div
-                  className={`h-3 w-3 rounded-full ${
-                    issue.severity === 'high'
-                      ? 'bg-red-500'
-                      : issue.severity === 'medium'
-                      ? 'bg-orange-500'
-                      : 'bg-gray-500'
-                  } shadow-lg group-hover:scale-150 transition-transform`}
-                />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full mb-2 hidden group-hover:block">
-                  <div className="bg-background border rounded-lg shadow-lg p-2 text-xs whitespace-nowrap">
-                    {issue.title}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Interactive Map Section */}
+      <div className="relative h-[500px] md:h-[600px] bg-muted border-b">
+        <InteractiveMap 
+          issues={dummyIssues} 
+          onIssueClick={(issue) => setSelectedIssue(issue)}
+        />
       </div>
 
       {/* Issues List */}
