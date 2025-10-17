@@ -7,7 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { dummyIssues, Issue } from '@/data/dummyData';
 import { MapPin, Plus, AlertCircle, Clock, CheckCircle2, Wrench } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import InteractiveMap from '@/components/InteractiveMap';
+import mapBackground from '@/assets/map-background.jpg';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -59,12 +59,12 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-[calc(100vh-4rem)]">
-      {/* Interactive Map Section */}
-      <div className="relative h-[500px] md:h-[600px] bg-muted border-b">
-        <InteractiveMap 
-          issues={dummyIssues} 
-          onIssueClick={(issue) => setSelectedIssue(issue)}
-        />
+      {/* Map Background Section */}
+      <div 
+        className="relative h-[500px] md:h-[600px] border-b bg-cover bg-center"
+        style={{ backgroundImage: `url(${mapBackground})` }}
+      >
+        <div className="absolute inset-0 bg-background/10" />
       </div>
 
       {/* Issues List */}
